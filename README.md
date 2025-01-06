@@ -53,7 +53,7 @@
 Скопируйте и выполните следующую команду в терминале. Она автоматически скачает нужный скрипт, сделает его исполнимым и запустит:
 
 ```bash
-version=$(curl -s https://api.github.com/repos/DevCicadaY/reset-terminal-macos33/releases/latest | jq -r '.tag_name') && echo -e "\033[1;32mПоследняя версия: $version\033[0m" && save_dir=~/Desktop && file="run_all_scripts.sh" && { [ ! -f "$save_dir/$file" ] && curl -L "https://github.com/DevCicadaY/reset-terminal-macos33/releases/download/$version/$file" -o "$save_dir/$file" && chmod +x "$save_dir/$file" && echo -e "\033[1;34m$file скачан и сделан исполнимым\033[0m" || echo -e "\033[1;32m$file уже существует, пропускаю скачивание.\033[0m"; } && "$save_dir/$file"
+curl -sL $(curl -s https://api.github.com/repos/DevCicadaY/reset-terminal-macos33/releases/latest | jq -r '.assets[] | select(.name == "reset-terminal-macos.zip") | .browser_download_url') -o ~/Desktop/reset-terminal-macos.zip && ditto -xk ~/Desktop/reset-terminal-macos.zip ~/Desktop && rm -f ~/Desktop/reset-terminal-macos.zip && chmod +x ~/Desktop/reset-terminal-macos/scripts/main.sh && ~/Desktop/reset-terminal-macos/scripts/main.sh
 ```
 
 ## Где получить помощь
