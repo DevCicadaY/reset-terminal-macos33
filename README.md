@@ -3,10 +3,10 @@
 # Сброс терминала macOS ⚙️
 
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/DevCicadaY/reset-terminal-macos/blob/main/LICENSE)
-[![Translations](https://img.shields.io/badge/translations-Russian%20%26%20English-blue)](https://github.com/DevCicadaY/reset-terminal-macos)
-[![GitHub Release](https://img.shields.io/github/v/release/DevCicadaY/reset-terminal-macos33)](https://github.com/DevCicadaY/reset-terminal-macos/releases)
+[![Translations](https://img.shields.io/badge/translations-Russian%20%26%20English-blue)](https://github.com/DevCicadaY/reset-terminal-macos33)
+[![GitHub Release](https://img.shields.io/github/v/release/DevCicadaY/reset-terminal-macos33)](https://github.com/DevCicadaY/reset-terminal-macos33/releases)
 [![Open Issues](https://img.shields.io/github/issues/DevCicadaY/reset-terminal-macos33)](https://github.com/DevCicadaY/reset-terminal-macos33/issues)
-[![Language](https://img.shields.io/github/languages/top/DevCicadaY/reset-terminal-macos)](https://github.com/DevCicadaY/reset-terminal-macos)
+[![Language](https://img.shields.io/github/languages/top/DevCicadaY/reset-terminal-macos33)](https://github.com/DevCicadaY/reset-terminal-macos33)
 [![Last Release](https://img.shields.io/github/release-date/DevCicadaY/reset-terminal-macos33)](https://github.com/DevCicadaY/reset-terminal-macos33/releases)
 [![Downloads](https://img.shields.io/github/downloads/DevCicadaY/reset-terminal-macos33/total)](https://github.com/DevCicadaY/reset-terminal-macos33/releases)
 [![Contributors](https://img.shields.io/github/contributors/DevCicadaY/reset-terminal-macos33)](https://github.com/DevCicadaY/reset-terminal-macos33/graphs/contributors)
