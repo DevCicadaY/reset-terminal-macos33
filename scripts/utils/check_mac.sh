@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# Цвета
+# Цвета для вывода
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
-RESET_COLOR='\033[0m' # Без цвета (сброс)
+RESET_COLOR='\033[0m'  # Сброс цвета
 
 # Важные переменные
-MIN_MAC_VERSION=15               # Пороговая версия macOS
-MIN_CURL_VERSION="7.64.1"         # Минимальная версия curl (обновлено)
-MIN_JQ_VERSION="1.5"             # Минимальная версия jq (обновлено)
-DOC_URL="https://example.com"    # Пример ссылки на документацию
+MIN_MAC_VERSION=15               # Минимальная поддерживаемая версия macOS
+MIN_CURL_VERSION="7.64.1"         # Минимальная версия утилиты curl
+MIN_JQ_VERSION="1.5"              # Минимальная версия утилиты jq
+DOC_URL="https://example.com"     # Ссылка на документацию
 
 # Функция для получения версии macOS
 get_mac_version() {
@@ -19,7 +19,7 @@ get_mac_version() {
     echo "$version"
 }
 
-# Получение версии операционной системы
+# Получение данных об операционной системе и версии macOS
 os_name=$(uname)
 mac_version=$(get_mac_version)
 mac_major_version=$(echo "$mac_version" | cut -d'.' -f1)
@@ -31,20 +31,20 @@ jq_version=$(jq --version | cut -d'-' -f2)
 # Список поддерживаемых терминалов
 SUPPORTED_TERMINALS=("iTerm2", "Hyper", "Alacritty", "Kitty")
 
-# Отображение важной информации
+# Вывод общей информации о системе
 echo -e "${BLUE}Информация о системе:${RESET_COLOR}"
 echo -e "${GREEN}Операционная система: $os_name${RESET_COLOR}"
 echo -e "${GREEN}Версия macOS: $mac_version${RESET_COLOR}"
-echo -e "${GREEN}Пороговая версия macOS: $MIN_MAC_VERSION${RESET_COLOR}"
+echo -e "${GREEN}Минимальная поддерживаемая версия macOS: $MIN_MAC_VERSION${RESET_COLOR}"
 echo -e "${GREEN}Минимальная версия curl: $MIN_CURL_VERSION${RESET_COLOR}"
 echo -e "${GREEN}Минимальная версия jq: $MIN_JQ_VERSION${RESET_COLOR}"
 echo -e "${GREEN}Версия curl: $curl_version${RESET_COLOR}"
 echo -e "${GREEN}Версия jq: $jq_version${RESET_COLOR}"
-echo -e "${BLUE}Поддерживаемые терминалы: ${SUPPORTED_TERMINALS[*]}${RESET_COLOR}"
+echo -e "${BLUE}Рекомендуемые терминалы: ${SUPPORTED_TERMINALS[*]}${RESET_COLOR}"
 
-# Информация о текущем терминале
+# Определение текущего терминала
 current_terminal=$(echo "$TERM_PROGRAM")
-echo -e "${BLUE}Текущий терминал: ${current_terminal}${RESET_COLOR}"
+echo -e "${BLUE}Текущий терминал: $current_terminal${RESET_COLOR}"
 
 # Проверка операционной системы
 echo -e "${BLUE}Проверка операционной системы...${RESET_COLOR}"
@@ -56,15 +56,15 @@ fi
 # Проверка версии macOS
 echo -e "${BLUE}Проверка версии macOS...${RESET_COLOR}"
 if [[ "$mac_major_version" -lt "$MIN_MAC_VERSION" ]]; then
-    echo -e "${RED}Ошибка: данный скрипт поддерживает только macOS версии $MIN_MAC_VERSION и выше.${RESET_COLOR}"
+    echo -e "${RED}Ошибка: данный скрипт требует macOS версии $MIN_MAC_VERSION и выше.${RESET_COLOR}"
     echo -e "${RED}Пожалуйста, обновите macOS до поддерживаемой версии.${RESET_COLOR}"
     exit 1
 fi
 
-# Если версия поддерживается
-echo -e "${GREEN}Версия macOS $mac_version поддерживается. Скрипт продолжает выполнение...${RESET_COLOR}"
+# Если версия macOS подходит, продолжаем выполнение
+echo -e "${GREEN}Версия macOS $mac_version поддерживается. Продолжаем выполнение скрипта...${RESET_COLOR}"
 
-# Функция для проверки наличия утилит и их версий
+# Функция для проверки утилит и их версий
 check_utility_version() {
     local utility="$1"
     local current_version="$2"
@@ -73,7 +73,7 @@ check_utility_version() {
 
     echo -e "${BLUE}Проверка утилиты: $utility...${RESET_COLOR}"
     if [[ -z "$current_version" ]]; then
-        echo -e "${YELLOW}Ошибка: $utility не установлен!${RESET_COLOR}" >&2
+        echo -e "${YELLOW}Ошибка: утилита $utility не установлена!${RESET_COLOR}" >&2
         case "$utility" in
             curl) echo -e "${BLUE}Установите curl с помощью команды: brew install curl.${RESET_COLOR}" ;;
             jq) echo -e "${BLUE}Установите jq с помощью команды: brew install jq.${RESET_COLOR}" ;;
@@ -89,7 +89,7 @@ check_utility_version() {
     fi
 }
 
-# Проверка всех необходимых утилит
+# Проверка утилит
 check_utility_version "curl" "$curl_version" "$MIN_CURL_VERSION" "curl"
 check_utility_version "jq" "$jq_version" "$MIN_JQ_VERSION" "jq"
 
@@ -101,14 +101,14 @@ check_terminal() {
         echo -e "${BLUE}Дополнительную информацию можно найти в документации: $DOC_URL${RESET_COLOR}"
         exit 1
     else
-        echo -e "${GREEN}Терминал поддерживается. Продолжаем работу.${RESET_COLOR}"
+        echo -e "${GREEN}Терминал поддерживается. Продолжаем выполнение скрипта.${RESET_COLOR}"
     fi
 }
 
 # Проверка терминала
 check_terminal
 
-# Если все проверки пройдены, продолжаем выполнение
+# Если все проверки пройдены успешно, продолжаем выполнение
 echo -e "${GREEN}Все проверки пройдены успешно. Скрипт продолжает выполнение...${RESET_COLOR}"
 
 exit 0

@@ -1,25 +1,30 @@
 #!/bin/bash
 
 # Функция для вывода сообщений с временной меткой и кодом завершения
+# Принимает два аргумента:
+# 1. Сообщение, которое нужно вывести
+# 2. Код завершения (по умолчанию 0)
 print_message() {
     local message="$1"
     local code="${2:-0}"
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] $message (Код завершения: $code)"
 }
 
-# Проверка наличия sudo
+# Проверка наличия команды sudo в системе
 if ! command -v sudo &>/dev/null; then
     print_message "Ошибка: sudo не установлено. Пожалуйста, установите sudo и попробуйте снова." 1
     exit 1
 fi
 
+# Оповещение о том, что операция затронет только настройки стандартного Terminal
 echo -e "\033[1;31m\033[43mВнимание! Операция затронет только настройки стандартного Terminal и его файлы. \nДругие терминалы не будут затронуты.\033[0m"
 
-# Запрос пароля sudo один раз в начале
+# Запрос пароля sudo один раз в начале, чтобы избежать повторных запросов
 echo "Пожалуйста, введите ваш пароль sudo для продолжения:"
 sudo -v
 
-# Функция для проверки статуса завершения и записи результатов
+# Функция для проверки успешного выполнения команды и вывода статуса
+# Принимает описание действия как аргумент
 check_exit_status() {
     local action="$1"
     local exit_code="$?"
@@ -31,7 +36,7 @@ check_exit_status() {
     fi
 }
 
-# Проверка, что скрипт не запускается в стандартном Terminal.app
+# Проверка, что скрипт не запущен в стандартном Terminal.app
 if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
     print_message "Выполнение скрипта в Terminal.app запрещено. Пожалуйста, запустите скрипт в другом терминале." 1
     exit 1
@@ -53,7 +58,7 @@ FILES_TO_REMOVE=(
     "$HOME/.config"
 )
 
-# Определение имени терминала и сохраненного состояния
+# Определение имени приложения Terminal и пути к его сохраненному состоянию
 TERMINAL_APP="Terminal"
 TERMINAL_SAVED_STATE="$HOME/Library/Saved Application State/com.apple.Terminal.savedState"
 
@@ -67,7 +72,7 @@ else
     print_message "Terminal не запущен, закрывать не нужно."
 fi
 
-# Удаление указанных файлов и директорий
+# Удаление указанных файлов и директорий, если они существуют
 for file in "${FILES_TO_REMOVE[@]}"; do
     if [[ -e "$file" ]]; then
         print_message "Удаление $file..."
@@ -79,7 +84,7 @@ for file in "${FILES_TO_REMOVE[@]}"; do
     fi
 done
 
-# Сброс настроек Terminal
+# Сброс настроек Terminal до стандартных
 print_message "Восстановление стандартных профилей Terminal..."
 if defaults read com.apple.Terminal &>/dev/null; then
     defaults delete com.apple.Terminal
@@ -97,6 +102,7 @@ SHELL_FILES=(
     "$HOME/.zsh_profile"
 )
 
+# Удаление файлов конфигурации оболочек
 for shell_file in "${SHELL_FILES[@]}"; do
     if [[ -e "$shell_file" ]]; then
         print_message "Удаление $shell_file..."
@@ -108,12 +114,12 @@ for shell_file in "${SHELL_FILES[@]}"; do
     fi
 done
 
-# Очистка остатков файлов, связанных с Terminal
+# Очистка остаточных файлов, связанных с Terminal
 print_message "Очистка остаточных файлов, связанных с Terminal..."
 sudo rm -rf "$HOME/Library/Application Support/Terminal" 2>/dev/null
 sudo rm -rf "$HOME/Library/Caches/com.apple.Terminal" 2>/dev/null
 
-# Итоговое сообщение о статусе, в зависимости от выполненных операций
+# Итоговое сообщение о статусе
 if [[ "$OPERATIONS_DONE" == true ]]; then
     print_message "Сброс настроек Terminal завершен успешно."
 else

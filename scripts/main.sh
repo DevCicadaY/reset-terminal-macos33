@@ -128,35 +128,37 @@ main() {
     make_executable "$UTILS_DIR"
     make_executable "$CORE_DIR"
 
-    bash "$SCRIPT_PATH" || exit 1  # Запускаем проверку macOS
+    # Запуск проверки совместимости с macOS
+    bash "$SCRIPT_PATH" || exit 1
 
-    # Проверка, поддерживаются ли цвета в терминале
+    # Проверка поддержки цветов в терминале
     check_colors
 
-    bash "$RISKS_AND_DOCS_SCRIPT"  # Запуск рисков и документации
+    # Запуск скрипта с рисками и документацией
+    bash "$RISKS_AND_DOCS_SCRIPT"
 
     # Запуск скрипта для вывода ASCII-арт
-    echo -e "${INFO_COLOR}Запуск скрипта для ASCII-арт...${RESET_COLOR}"
+    echo -e "${INFO_COLOR}Запуск скрипта для вывода ASCII-арт...${RESET_COLOR}"
     "$ASCII_SCRIPT"
 
-    # Получаем последнюю версию
+    # Получение последней версии проекта
     get_latest_version
 
     # Информация об авторе
     echo -e "${AUTHOR_COLOR}Автор: DevCicadaY${RESET_COLOR}"
     echo -e "${AUTHOR_COLOR}Репозиторий: $REPO_URL${RESET_COLOR}"
 
-    # Предупреждения о рисках
-    echo -e "${WARNING_COLOR}ВНИМАНИЕ! Этот скрипт изменит настройки вашего терминала и может удалить файлы!${RESET_COLOR}"
+    # Предупреждение о рисках
+    echo -e "${WARNING_COLOR}\nПРЕДУПРЕЖДЕНИЕ!${RESET_COLOR}"
+    echo -e "${WARNING_COLOR}Этот скрипт изменит настройки терминала и может удалить файлы. \nВсе изменения необратимы!${RESET_COLOR}"
     echo -e "Нажмите ENTER для продолжения или CTRL+C для отмены."
-    read -r
+    read -r  # Ждем нажатие Enter для продолжения
 
-    # Согласие на выполнение
-    echo -e "${RISK_COLOR}ВНИМАНИЕ!${RESET_COLOR}"
-    echo -e "${RISK_COLOR}Этот скрипт изменит настройки вашего терминала и может удалить важные файлы. \nВсе изменения необратимы!${RESET_COLOR}"
-    echo -e "Если вы хотите продолжить, подтвердите согласие, нажав ENTER. \nЕсли вы не уверены или хотите отменить процесс, нажмите CTRL+C."
-    echo -e "Вы уверены, что хотите продолжить?"
-    read -r
+    # Соглашение на выполнение изменений
+    echo -e "${RISK_COLOR}СОГЛАШЕНИЕ!${RESET_COLOR}"
+    echo -e "${RISK_COLOR}Вы понимаете риски изменений и удалений файлов. \nЭти действия необратимы!${RESET_COLOR}"
+    echo -e "Нажмите ENTER для продолжения, CTRL+C для отмены."
+    read -r  # Ждем нажатие Enter для подтверждения
 
     # Выполнение сброса настроек терминала
     echo -e "${INFO_COLOR}Сброс настроек терминала...${RESET_COLOR}"
