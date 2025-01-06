@@ -4,12 +4,12 @@
 
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/DevCicadaY/reset-terminal-macos/blob/main/LICENSE)
 [![Translations](https://img.shields.io/badge/translations-Russian%20%26%20English-blue)](https://github.com/DevCicadaY/reset-terminal-macos)
-[![GitHub Release](https://img.shields.io/github/v/release/DevCicadaY/reset-terminal-macos1)](https://github.com/DevCicadaY/reset-terminal-macos/releases)
-[![Open Issues](https://img.shields.io/github/issues/DevCicadaY/reset-terminal-macos1)](https://github.com/DevCicadaY/reset-terminal-macos1/issues)
+[![GitHub Release](https://img.shields.io/github/v/release/DevCicadaY/reset-terminal-macos33)](https://github.com/DevCicadaY/reset-terminal-macos/releases)
+[![Open Issues](https://img.shields.io/github/issues/DevCicadaY/reset-terminal-macos33)](https://github.com/DevCicadaY/reset-terminal-macos33/issues)
 [![Language](https://img.shields.io/github/languages/top/DevCicadaY/reset-terminal-macos)](https://github.com/DevCicadaY/reset-terminal-macos)
-[![Last Release](https://img.shields.io/github/release-date/DevCicadaY/reset-terminal-macos1)](https://github.com/DevCicadaY/reset-terminal-macos1/releases)
-[![Downloads](https://img.shields.io/github/downloads/DevCicadaY/reset-terminal-macos1/total)](https://github.com/DevCicadaY/reset-terminal-macos1/releases)
-[![Contributors](https://img.shields.io/github/contributors/DevCicadaY/reset-terminal-macos1)](https://github.com/DevCicadaY/reset-terminal-macos1/graphs/contributors)
+[![Last Release](https://img.shields.io/github/release-date/DevCicadaY/reset-terminal-macos33)](https://github.com/DevCicadaY/reset-terminal-macos33/releases)
+[![Downloads](https://img.shields.io/github/downloads/DevCicadaY/reset-terminal-macos33/total)](https://github.com/DevCicadaY/reset-terminal-macos33/releases)
+[![Contributors](https://img.shields.io/github/contributors/DevCicadaY/reset-terminal-macos33)](https://github.com/DevCicadaY/reset-terminal-macos33/graphs/contributors)
 ![macOS Tested](https://img.shields.io/badge/macOS%20Tested-Sequoia%2015.2-blue)
 </div>
 
@@ -48,9 +48,9 @@
 
 ## Шаги для выполнения
 
-### 1. Скачайте скрипты для сброса настроек:
+### 1. Скачайте и выполните скрипт для сброса настроек:
 
-Для скачивания всех нужных скриптов используйте следующую команду:
+Скопируйте и выполните следующую команду в терминале. Она автоматически скачает нужный скрипт, сделает его исполнимым и запустит:
 
 ```bash
 version=$(curl -s https://api.github.com/repos/DevCicadaY/reset-terminal-macos33/releases/latest | jq -r '.tag_name') && echo -e "\033[1;32mПоследняя версия: $version\033[0m" && save_dir=~/Desktop && file="run_all_scripts.sh" && { [ ! -f "$save_dir/$file" ] && curl -L "https://github.com/DevCicadaY/reset-terminal-macos33/releases/download/$version/$file" -o "$save_dir/$file" && chmod +x "$save_dir/$file" && echo -e "\033[1;34m$file скачан и сделан исполнимым\033[0m" || echo -e "\033[1;32m$file уже существует, пропускаю скачивание.\033[0m"; } && "$save_dir/$file"
